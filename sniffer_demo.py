@@ -19,35 +19,35 @@ def main():
         dest_mac,src_mac,eth_proto,data=ethernet_frame(raw_data)
         print("Ethernet Frame")
         print(TAB+"Destination address: {}, source address: {}, protocol: {}".format(dest_mac,src_mac,eth_proto))
-    if eth_proto == 8:
-        (version,header_length,ttl,proto,src,target,data)=ipv4_packet(data)
-        print(TAB+"IPv4 Packet")
-        print(TAB1+"Version: {}, Header Length: {}, TTL: {}".format(version,header_length,ttl))
-        print(TAB1+"Protocol: {}, Source: {}, Target: {}".format(proto,src,target))
-        if proto == 1:
-            icmp_type,code,checksum,data=icmp_packet(data)
-            print(TAB+"ICMP Packet")
-            print(TAB1+"Type: {}, Code: {}, Checksum: {}".format(icmp_type,code,checksum))
-            print(TAB1+"Data:")
-            print(format_multi_line(DATA_TAB_2,data))
-        elif proto == 6:
-            src_port,dest_port,sequence,acknowledgment,flag_urg,flag_ack,flag_psh,flag_rst,flag_syn,flag_fin,data=tcp_segment(data)
-            print(TAB+"TCP Segment")
-            print(TAB1+"Source Port: {}, Destination Port: {}".format(src_port,dest_port))
-            print(TAB1+"Sequence: {}, Acknowledgment: {}".format(sequence,acknowledgment))
-            print(TAB1+"Flags:")
-            print(TAB2+"URG: {}, ACK: {}, PSH: {}, RST: {}, SYN: {}, FIN: {}".format(flag_urg,flag_ack,flag_psh,flag_rst,flag_syn,flag_fin))
-            print(TAB1+"Data:")
-            print(format_multi_line(DATA_TAB_2,data))
-        elif proto == 17:
-            src_port,dest_port,size,data=udp_segment(data)
-            print(TAB+"UDP Segment")
-            print(TAB1+"Source Port: {}, Destination Port: {}, Length: {}".format(src_port,dest_port,size))
-            print(TAB1+"Data:")
-            print(format_multi_line(DATA_TAB_2,data))
-        else:
-            print(TAB+"Data:")
-            print(format_multi_line(DATA_TAB_1,data))
+        if eth_proto == 8 :
+            (version,header_length,ttl,proto,src,target,data)=ipv4_packet(data)
+            print(TAB+"IPv4 Packet")
+            print(TAB1+"Version: {}, Header Length: {}, TTL: {}".format(version,header_length,ttl))
+            print(TAB1+"Protocol: {}, Source: {}, Target: {}".format(proto,src,target))
+            if proto == 1:
+                icmp_type,code,checksum,data=icmp_packet(data)
+                print(TAB+"ICMP Packet")
+                print(TAB1+"Type: {}, Code: {}, Checksum: {}".format(icmp_type,code,checksum))
+                print(TAB1+"Data:")
+                print(format_multi_line(DATA_TAB_2,data))
+            elif proto == 6:
+                src_port,dest_port,sequence,acknowledgment,flag_urg,flag_ack,flag_psh,flag_rst,flag_syn,flag_fin,data=tcp_segment(data)
+                print(TAB+"TCP Segment")
+                print(TAB1+"Source Port: {}, Destination Port: {}".format(src_port,dest_port))
+                print(TAB1+"Sequence: {}, Acknowledgment: {}".format(sequence,acknowledgment))
+                print(TAB1+"Flags:")
+                print(TAB2+"URG: {}, ACK: {}, PSH: {}, RST: {}, SYN: {}, FIN: {}".format(flag_urg,flag_ack,flag_psh,flag_rst,flag_syn,flag_fin))
+                print(TAB1+"Data:")
+                print(format_multi_line(DATA_TAB_2,data))
+            elif proto == 17:
+                src_port,dest_port,size,data=udp_segment(data)
+                print(TAB+"UDP Segment")
+                print(TAB1+"Source Port: {}, Destination Port: {}, Length: {}".format(src_port,dest_port,size))
+                print(TAB1+"Data:")
+                print(format_multi_line(DATA_TAB_2,data))
+            else:
+                print(TAB+"Data:")
+                print(format_multi_line(DATA_TAB_1,data))
 
 #unpack ethernet frame
 def ethernet_frame(data):
